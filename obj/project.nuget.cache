@@ -1,0 +1,19 @@
+{
+  "version": 2,
+  "dgSpecHash": "dFSm76f2uL8=",
+  "success": true,
+  "projectFilePath": "/Users/andersreus/Code/My projects/webhooktesting/webhooktesting.csproj",
+  "expectedPackageFiles": [
+    "/Users/andersreus/.nuget/packages/microsoft.csharp/4.5.0/microsoft.csharp.4.5.0.nupkg.sha512",
+    "/Users/andersreus/.nuget/packages/microsoft.identitymodel.jsonwebtokens/6.10.1/microsoft.identitymodel.jsonwebtokens.6.10.1.nupkg.sha512",
+    "/Users/andersreus/.nuget/packages/microsoft.identitymodel.logging/6.10.1/microsoft.identitymodel.logging.6.10.1.nupkg.sha512",
+    "/Users/andersreus/.nuget/packages/microsoft.identitymodel.tokens/6.10.1/microsoft.identitymodel.tokens.6.10.1.nupkg.sha512",
+    "/Users/andersreus/.nuget/packages/newtonsoft.json/13.0.3/newtonsoft.json.13.0.3.nupkg.sha512",
+    "/Users/andersreus/.nuget/packages/refit/8.0.0/refit.8.0.0.nupkg.sha512",
+    "/Users/andersreus/.nuget/packages/refit.newtonsoft.json/8.0.0/refit.newtonsoft.json.8.0.0.nupkg.sha512",
+    "/Users/andersreus/.nuget/packages/system.security.cryptography.cng/4.5.0/system.security.cryptography.cng.4.5.0.nupkg.sha512",
+    "/Users/andersreus/.nuget/packages/umbraco.headless.client.net/1.5.0/umbraco.headless.client.net.1.5.0.nupkg.sha512",
+    "/Users/andersreus/.nuget/packages/umbraco.headless.client.net.web/1.5.0/umbraco.headless.client.net.web.1.5.0.nupkg.sha512"
+  ],
+  "logs": []
+}

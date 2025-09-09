@@ -1,0 +1,183 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v9.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v9.0": {
+      "webhooktesting/1.0.0": {
+        "dependencies": {
+          "Umbraco.Headless.Client.Net.Web": "1.5.0"
+        },
+        "runtime": {
+          "webhooktesting.dll": {}
+        }
+      },
+      "Microsoft.CSharp/4.5.0": {},
+      "Microsoft.IdentityModel.JsonWebTokens/6.10.1": {
+        "dependencies": {
+          "Microsoft.IdentityModel.Tokens": "6.10.1"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.IdentityModel.JsonWebTokens.dll": {
+            "assemblyVersion": "6.10.1.0",
+            "fileVersion": "6.10.1.20412"
+          }
+        }
+      },
+      "Microsoft.IdentityModel.Logging/6.10.1": {
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.IdentityModel.Logging.dll": {
+            "assemblyVersion": "6.10.1.0",
+            "fileVersion": "6.10.1.20412"
+          }
+        }
+      },
+      "Microsoft.IdentityModel.Tokens/6.10.1": {
+        "dependencies": {
+          "Microsoft.CSharp": "4.5.0",
+          "Microsoft.IdentityModel.Logging": "6.10.1",
+          "System.Security.Cryptography.Cng": "4.5.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.IdentityModel.Tokens.dll": {
+            "assemblyVersion": "6.10.1.0",
+            "fileVersion": "6.10.1.20412"
+          }
+        }
+      },
+      "Newtonsoft.Json/13.0.3": {
+        "runtime": {
+          "lib/net6.0/Newtonsoft.Json.dll": {
+            "assemblyVersion": "13.0.0.0",
+            "fileVersion": "13.0.3.27908"
+          }
+        }
+      },
+      "Refit/8.0.0": {
+        "runtime": {
+          "lib/net8.0/Refit.dll": {
+            "assemblyVersion": "8.0.0.0",
+            "fileVersion": "8.0.0.1"
+          }
+        }
+      },
+      "Refit.Newtonsoft.Json/8.0.0": {
+        "dependencies": {
+          "Newtonsoft.Json": "13.0.3",
+          "Refit": "8.0.0"
+        },
+        "runtime": {
+          "lib/net8.0/Refit.Newtonsoft.Json.dll": {
+            "assemblyVersion": "8.0.0.0",
+            "fileVersion": "8.0.0.1"
+          }
+        }
+      },
+      "System.Security.Cryptography.Cng/4.5.0": {},
+      "Umbraco.Headless.Client.Net/1.5.0": {
+        "dependencies": {
+          "Newtonsoft.Json": "13.0.3",
+          "Refit.Newtonsoft.Json": "8.0.0",
+          "Refit": "8.0.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Umbraco.Headless.Client.Net.dll": {
+            "assemblyVersion": "1.5.0.0",
+            "fileVersion": "1.5.0.0"
+          }
+        }
+      },
+      "Umbraco.Headless.Client.Net.Web/1.5.0": {
+        "dependencies": {
+          "Microsoft.IdentityModel.JsonWebTokens": "6.10.1",
+          "Umbraco.Headless.Client.Net": "1.5.0"
+        },
+        "runtime": {
+          "lib/net5.0/Umbraco.Headless.Client.Net.Web.dll": {
+            "assemblyVersion": "1.5.0.0",
+            "fileVersion": "1.5.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "webhooktesting/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Microsoft.CSharp/4.5.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-kaj6Wb4qoMuH3HySFJhxwQfe8R/sJsNJnANrvv8WdFPMoNbKY5htfNscv+LHCu5ipz+49m2e+WQXpLXr9XYemQ==",
+      "path": "microsoft.csharp/4.5.0",
+      "hashPath": "microsoft.csharp.4.5.0.nupkg.sha512"
+    },
+    "Microsoft.IdentityModel.JsonWebTokens/6.10.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-qX8ZmIFa7zUPXvB3ikik0j5Xtc7Z60dt9w959MtbXivTyAKTr6zG0vB/4QhtYGYxnDoHH47NJxldJcbKDxXYoA==",
+      "path": "microsoft.identitymodel.jsonwebtokens/6.10.1",
+      "hashPath": "microsoft.identitymodel.jsonwebtokens.6.10.1.nupkg.sha512"
+    },
+    "Microsoft.IdentityModel.Logging/6.10.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-3M3WSWdl2RAFdCtqzkxOklq9P3+DaWNRuj/Z6AdVCpho04bdLVMfi5B5vAG7eCxW462AA/WoSkMXIG5DJq0wLA==",
+      "path": "microsoft.identitymodel.logging/6.10.1",
+      "hashPath": "microsoft.identitymodel.logging.6.10.1.nupkg.sha512"
+    },
+    "Microsoft.IdentityModel.Tokens/6.10.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-t3Pk6tKwXTQiD/VVnHBBXS+f/q1wF8Ay2YbA8XsUa8YwnKAh6+2KLqf+kIWvwfDnKvYDkvKRXD5kta74K1jz/g==",
+      "path": "microsoft.identitymodel.tokens/6.10.1",
+      "hashPath": "microsoft.identitymodel.tokens.6.10.1.nupkg.sha512"
+    },
+    "Newtonsoft.Json/13.0.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-HrC5BXdl00IP9zeV+0Z848QWPAoCr9P3bDEZguI+gkLcBKAOxix/tLEAAHC+UvDNPv4a2d18lOReHMOagPa+zQ==",
+      "path": "newtonsoft.json/13.0.3",
+      "hashPath": "newtonsoft.json.13.0.3.nupkg.sha512"
+    },
+    "Refit/8.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-gXRmIy3Va0mwwr8usnqVRQFoFIJaJGlWTTXBlwxIkHB/xwXnq1Ybs1YNA2BM1O4G46JLLlGjg6YOwrTZusuY3Q==",
+      "path": "refit/8.0.0",
+      "hashPath": "refit.8.0.0.nupkg.sha512"
+    },
+    "Refit.Newtonsoft.Json/8.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-kdbgxYm44SPP1hV0Nw41N3viYYgdBICTpYp7AuqAAl4kJHV2WyRO4fnJ8hxCQm0pTHwrjg+EMSeJBaC6OVFkSw==",
+      "path": "refit.newtonsoft.json/8.0.0",
+      "hashPath": "refit.newtonsoft.json.8.0.0.nupkg.sha512"
+    },
+    "System.Security.Cryptography.Cng/4.5.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-WG3r7EyjUe9CMPFSs6bty5doUqT+q9pbI80hlNzo2SkPkZ4VTuZkGWjpp77JB8+uaL4DFPRdBsAY+DX3dBK92A==",
+      "path": "system.security.cryptography.cng/4.5.0",
+      "hashPath": "system.security.cryptography.cng.4.5.0.nupkg.sha512"
+    },
+    "Umbraco.Headless.Client.Net/1.5.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Iydrjf6CAGXqk38dUWFPAGhefoXJVCd6++YbjtV0hyWhKOgiixFIkjnwF33aPYw39MnRipWV3nI1dYOeEqB/4Q==",
+      "path": "umbraco.headless.client.net/1.5.0",
+      "hashPath": "umbraco.headless.client.net.1.5.0.nupkg.sha512"
+    },
+    "Umbraco.Headless.Client.Net.Web/1.5.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-GsQ9t3P9Q5iKZ/kJUBgLMQ0MbgBnSl9ugiDiRImxtVAhSjFHYPXvRO0yFBPIeLsCxLs8zwSDa18QjN/fpFMg9Q==",
+      "path": "umbraco.headless.client.net.web/1.5.0",
+      "hashPath": "umbraco.headless.client.net.web.1.5.0.nupkg.sha512"
+    }
+  }
+}
