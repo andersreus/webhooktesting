@@ -55,7 +55,12 @@ async Task CreateTvShowContentAsync(List<TvModel> tvshows)
             ContentTypeAlias = ContentTypeAlias,
             ParentId = new Guid(AllTvShowsContentNodeKey)
         };
-        content.Name.Add("en-US", tvshow.Name ?? "No name for this tvshow");
+
+        foreach (var culture in cultures)
+        {
+            content.Name.Add(culture, $"{tvshow.Name} ({tvshow.Id})" ?? "No name for this tvshow");
+        }
+        
         content.Properties.Add(IdPropertyAlias, new Dictionary<string, object>
         {
             {
@@ -66,14 +71,43 @@ async Task CreateTvShowContentAsync(List<TvModel> tvshows)
         var translatedSummary = new Dictionary<string, object>();
         foreach (var culture in cultures)
         {
-            translatedSummary[culture] = tvshow.Summary ?? "No summary for this tvshow";
+            translatedSummary[culture] = $"{culture} {tvshow.Summary}" ?? "No summary for this tvshow";
         }
         content.Properties.Add(SummaryPropertyAlias, translatedSummary);
+
+        try
+        {
+            var createdContent = await contentManagementService.Content.Create(content);
+
+            if (createdContent is null || createdContent.Id == Guid.Empty)
+            {
+                // Log the content object for inspection
+                Console.WriteLine($"Create returned empty Id for '{tvshow.Name}'. Inspecting object:");
+                Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(content, Newtonsoft.Json.Formatting.Indented));
+                throw new InvalidOperationException($"Create returned empty Id for '{tvshow.Name}'.");
+            }
+
+            await contentManagementService.Content.Publish(createdContent.Id);
+
+            Console.WriteLine($"Created and published content: {createdContent.Name.First().Value}");
+        }
+        catch (Refit.ApiException ex)
+        {
+            // Log full API error response
+            Console.WriteLine($"Create failed for '{tvshow.Name}' (HTTP {ex.StatusCode}).");
+            Console.WriteLine("API response body:\n" + ex.Content);
+    
+            // Optionally throw to stop execution or continue with next tvshow
+            throw;
+        }
+        catch (Exception ex)
+        {
+            // Catch any other unexpected exception
+            Console.WriteLine($"Unexpected error creating '{tvshow.Name}': {ex}");
+            throw;
+        }
         
-        var createdContent = await contentManagementService.Content.Create(content);
-        await contentManagementService.Content.Publish(createdContent.Id);
-        
-        Console.WriteLine($"Created and published content: {createdContent.Name.First().Value}");
+        // Console.WriteLine($"Created and published content: {createdContent.Name.First().Value}");
     }
 }
 
@@ -81,11 +115,15 @@ async Task<HashSet<int>> GetExistingTvShowsFromHeartcoreAsync()
 {
     var existingIds = new HashSet<int>();
     var existingChilds = await contentDeliveryService.Content.GetChildren(Guid.Parse(AllTvShowsContentNodeKey));
+    var items = existingChilds.Content.Items;
+    
+    if (items is null)
+        return existingIds;
 
-    foreach (var tvshow in existingChilds.Content.Items)
+    foreach (var tvshow in items)
     {
         // no fucking clue if this works
-        if (tvshow?.Properties != null && tvshow.Properties.TryGetValue(IdPropertyAlias, out var idObj)
+        if (tvshow.Properties is not null && tvshow.Properties.TryGetValue(IdPropertyAlias, out var idObj)
             && idObj is Dictionary<string, object> dict
             && dict.TryGetValue("$invariant", out var idVal)
             && int.TryParse(idVal.ToString(), out var id))
