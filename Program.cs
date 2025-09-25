@@ -2,6 +2,7 @@
 using System.Text.Json.Serialization;
 using Umbraco.Headless.Client.Net.Delivery;
 using Umbraco.Headless.Client.Net.Management;
+using webhooktesting;
 using Content = Umbraco.Headless.Client.Net.Management.Models.Content;
 
 const string ProjectAlias = "webhookmaze";
@@ -10,12 +11,14 @@ const string ContentTypeAlias = "tvShow";
 const string IdPropertyAlias = "showId";
 const string SummaryPropertyAlias = "summary";
 const string AllTvShowsContentNodeKey = "3c0a7d4d-4fc9-4b38-9b24-cea3a487c00d";
+const string DbPath = "existingtvshows.db";
 
 ContentManagementService contentManagementService = new(ProjectAlias, ApiKey);
 ContentDeliveryService contentDeliveryService = new(ProjectAlias, ApiKey);
 
-var existingIds = await GetExistingTvShowsFromHeartcoreAsync();
-await GetALlTvShowsFromTvMazeAsync(existingIds);
+var repo = new ExistingTvShowIdRepository(DbPath);
+var existingDbIds = repo.GetAllIds();
+await GetALlTvShowsFromTvMazeAsync(existingDbIds);
 
 async Task GetALlTvShowsFromTvMazeAsync(HashSet<int> existingIds)
 {
@@ -31,7 +34,6 @@ async Task GetALlTvShowsFromTvMazeAsync(HashSet<int> existingIds)
         var jsonStream = await response.Content.ReadAsStreamAsync();
         await TurnTvShowJsonIntoCsharpModels(jsonStream, existingIds);
         page++;
-        // await Task.Delay(100);
     }
 }
 
@@ -78,61 +80,53 @@ async Task CreateTvShowContentAsync(List<TvModel> tvshows)
         try
         {
             var createdContent = await contentManagementService.Content.Create(content);
-
-            if (createdContent is null || createdContent.Id == Guid.Empty)
-            {
-                // Log the content object for inspection
-                Console.WriteLine($"Create returned empty Id for '{tvshow.Name}'. Inspecting object:");
-                Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(content, Newtonsoft.Json.Formatting.Indented));
-                throw new InvalidOperationException($"Create returned empty Id for '{tvshow.Name}'.");
-            }
-
             await contentManagementService.Content.Publish(createdContent.Id);
 
-            Console.WriteLine($"Created and published content: {createdContent.Name.First().Value}");
-        }
-        catch (Refit.ApiException ex)
-        {
-            // Log full API error response
-            Console.WriteLine($"Create failed for '{tvshow.Name}' (HTTP {ex.StatusCode}).");
-            Console.WriteLine("API response body:\n" + ex.Content);
-    
-            // Optionally throw to stop execution or continue with next tvshow
-            throw;
+            Console.WriteLine($"Created and published tvshow: {createdContent.Name.First().Value}");
+            
+            repo.AddId(tvshow.Id);
         }
         catch (Exception ex)
         {
-            // Catch any other unexpected exception
-            Console.WriteLine($"Unexpected error creating '{tvshow.Name}': {ex}");
-            throw;
+            Console.WriteLine($"Error creating: '{tvshow.Name}': {ex}");
         }
-        
-        // Console.WriteLine($"Created and published content: {createdContent.Name.First().Value}");
     }
 }
 
-async Task<HashSet<int>> GetExistingTvShowsFromHeartcoreAsync()
+/*async Task<HashSet<int>> GetExistingTvShowsFromHeartcoreAsync()
 {
     var existingIds = new HashSet<int>();
-    var existingChilds = await contentDeliveryService.Content.GetChildren(Guid.Parse(AllTvShowsContentNodeKey));
-    var items = existingChilds.Content.Items;
-    
-    if (items is null)
-        return existingIds;
+    var parentId = Guid.Parse(AllTvShowsContentNodeKey);
+    const int pageSize = 100; // Don't think it matters, but 100 nodes is default in Umbraco backoffice per page.
+    int page = 1;
 
-    foreach (var tvshow in items)
+    while (true)
     {
-        // no fucking clue if this works
-        if (tvshow.Properties is not null && tvshow.Properties.TryGetValue(IdPropertyAlias, out var idObj)
-            && idObj is Dictionary<string, object> dict
-            && dict.TryGetValue("$invariant", out var idVal)
-            && int.TryParse(idVal.ToString(), out var id))
+        var children = await contentDeliveryService.Content
+            .GetChildren(parentId, page: page, pageSize: pageSize);
+
+        var items = children?.Content?.Items;
+        if (items == null || !items.Any())
+            break;
+
+        foreach (var tvshow in items)
         {
-            existingIds.Add(id);
+            if (tvshow?.Properties != null &&
+                tvshow.Properties.TryGetValue(IdPropertyAlias, out var idObj) &&
+                idObj is long l)
+            {
+                existingIds.Add((int)l);
+            }
         }
+
+        if (items.Count() < pageSize)
+            break;
+
+        page++;
     }
+
     return existingIds;
-}
+}*/
 
 public class TvModel
 {
